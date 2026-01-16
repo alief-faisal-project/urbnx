@@ -63,6 +63,7 @@ const ProductDetail = () => {
     toast({
       title: "Ditambahkan ke keranjang",
       description: `${quantity}x ${product.name} telah ditambahkan.`,
+      duration: 2000,
     });
   };
 
