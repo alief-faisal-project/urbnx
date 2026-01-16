@@ -18,13 +18,15 @@ const Footer = () => {
       { name: "FAQ", path: "/faq" },
       { name: "Size Guide", path: "/size-guide" },
     ],
-    legal: [
-      { name: "Privacy Policy", path: "/privacy-policy" },
-    ],
+    legal: [{ name: "Privacy Policy", path: "/privacy-policy" }],
   };
 
   const socialLinks = [
-    { icon: Instagram, href: "https://instagram.com/urbnx", label: "Instagram" },
+    {
+      icon: Instagram,
+      href: "https://instagram.com/urbnx",
+      label: "Instagram",
+    },
     { icon: Facebook, href: "https://facebook.com/urbnx", label: "Facebook" },
     { icon: Twitter, href: "https://twitter.com/urbnx", label: "Twitter" },
   ];
@@ -32,17 +34,14 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container-brand section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-6">
-            <img 
-              src={logo} 
-              alt="URBNX Logo" 
-              className="h-10 w-auto invert"
-            />
+            <img src={logo} alt="URBNX Logo" className="h-10 w-auto invert" />
             <p className="text-primary-foreground/70 text-sm leading-relaxed max-w-sm">
-              Be Authentic In Your Own Style. URBNX adalah brand fashion streetwear 
-              Indonesia yang mengutamakan kualitas, keaslian, dan eksklusivitas.
+              Be Authentic In Your Own Style. URBNX adalah brand fashion
+              streetwear Indonesia yang mengutamakan kualitas, keaslian, dan
+              eksklusivitas.
             </p>
             <div className="flex items-center gap-4">
               {socialLinks.map((social) => (
@@ -60,55 +59,64 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Shop Links */}
-          <div>
-            <h4 className="font-display text-lg uppercase tracking-wider mb-4">Shop</h4>
-            <ul className="space-y-3">
-              {footerLinks.shop.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    to={link.path}
-                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Links Grid - 3 columns on mobile */}
+          <div className="grid grid-cols-3 gap-4 lg:col-span-3 lg:grid-cols-3 lg:gap-10">
+            {/* Shop Links */}
+            <div>
+              <h4 className="font-display text-sm md:text-lg uppercase tracking-wider mb-3 md:mb-4">
+                Shop
+              </h4>
+              <ul className="space-y-2 md:space-y-3">
+                {footerLinks.shop.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      to={link.path}
+                      className="text-xs md:text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Company Links */}
-          <div>
-            <h4 className="font-display text-lg uppercase tracking-wider mb-4">Company</h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    to={link.path}
-                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Company Links */}
+            <div>
+              <h4 className="font-display text-sm md:text-lg uppercase tracking-wider mb-3 md:mb-4">
+                Company
+              </h4>
+              <ul className="space-y-2 md:space-y-3">
+                {footerLinks.company.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      to={link.path}
+                      className="text-xs md:text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Legal Links */}
-          <div>
-            <h4 className="font-display text-lg uppercase tracking-wider mb-4">Legal</h4>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    to={link.path}
-                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Legal Links */}
+            <div>
+              <h4 className="font-display text-sm md:text-lg uppercase tracking-wider mb-3 md:mb-4">
+                Legal
+              </h4>
+              <ul className="space-y-2 md:space-y-3">
+                {footerLinks.legal.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      to={link.path}
+                      className="text-xs md:text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
