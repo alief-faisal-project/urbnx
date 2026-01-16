@@ -55,7 +55,7 @@ const HeroCarousel = () => {
   }, [nextSlide]);
 
   return (
-    <section className="relative w-full h-[60vh] md:h-[75vh] lg:h-[85vh] overflow-hidden bg-black">
+    <section className="relative w-full aspect-video md:aspect-auto md:h-[75vh] lg:h-[85vh] overflow-hidden bg-black">
       {/* Slides */}
       <div className="relative w-full h-full">
         {banners.map((banner, index) => (
