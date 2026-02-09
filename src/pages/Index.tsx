@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import HeroCarousel from "@/components/HeroCarousel";
+import MobileQuickMenu from "@/components/MobileQuickMenu";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import BrandPhilosophy from "@/components/BrandPhilosophy";
 import Newsletter from "@/components/Newsletter";
@@ -9,6 +10,9 @@ const Index = () => {
     <Layout>
       {/* Hero Section with Carousel */}
       <HeroCarousel />
+
+      {/* Mobile Quick Menu - Only visible on mobile */}
+      <MobileQuickMenu />
 
       {/* Featured Products Section */}
       <FeaturedProducts />
