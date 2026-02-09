@@ -121,19 +121,6 @@ const AdminLogin = () => {
               {isLoading ? "Loading..." : "Login"}
             </button>
           </form>
-
-          {/* Demo Credentials Info */}
-          <div className="mt-6 p-4 bg-white/5 border border-white/10">
-            <p className="text-white/50 text-xs uppercase tracking-wider mb-2">
-              Demo Account:
-            </p>
-            <p className="text-white/70 text-sm font-mono">
-              Email: admin@urbnx.com
-            </p>
-            <p className="text-white/70 text-sm font-mono">
-              Password: admin123
-            </p>
-          </div>
         </div>
 
         {/* Back to Store */}

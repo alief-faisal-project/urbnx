@@ -5,6 +5,7 @@ import logo from "@/assets/logo_urbnx.png";
 import { useCart } from "@/context/CartContext";
 import { useProducts } from "@/context/ProductContext";
 import { useAdmin } from "@/context/AdminContext";
+import HamburgerIcon from "@/components/HamburgerIcon";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -150,7 +151,7 @@ const Header = () => {
                                   </p>
                                   <p className="text-xs font-semibold text-red-600">
                                     {formatPrice(
-                                      calculateDiscountedPrice(product)
+                                      calculateDiscountedPrice(product),
                                     )}
                                   </p>
                                 </>
@@ -282,13 +283,10 @@ const Header = () => {
           }`}
         >
           {/* Close Button */}
-          <button
-            className="absolute top-4 left-4 p-2 text-white/70 hover:text-white transition-colors"
-            onClick={() => setIsMenuOpen(false)}
-            aria-label="Close menu"
-          >
-            <X className="w-6 h-6" />
-          </button>
+          <div className="absolute top-4 left-4">
+            <HamburgerIcon isOpen={true} onClick={() => setIsMenuOpen(false)} />
+            <style>{`.absolute.top-4.left-4 span { background-color: white !important; }`}</style>
+          </div>
 
           <nav className="flex flex-col pt-20 pb-8 h-full">
             {navLinks.map((link, index) => (
