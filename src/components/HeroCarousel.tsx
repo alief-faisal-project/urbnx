@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import banner1 from "@/assets/banner1.jpg";
 import banner2 from "@/assets/banner2.jpg";
@@ -35,9 +35,16 @@ const banners = [
 const HeroCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const isDragging = useRef(false);
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % banners.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + banners.length) % banners.length);
   }, []);
 
   const goToSlide = (index: number) => {
@@ -45,8 +52,33 @@ const HeroCarousel = () => {
   };
 
   const handleBannerClick = (productId: string) => {
+    if (isDragging.current) return;
     window.scrollTo({ top: 0, behavior: "instant" });
     navigate(`/product/${productId}`);
+  };
+
+  // Touch/swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    isDragging.current = false;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+    const diff = Math.abs(touchStartX.current - touchEndX.current);
+    if (diff > 10) isDragging.current = true;
+  };
+
+  const handleTouchEnd = () => {
+    const diff = touchStartX.current - touchEndX.current;
+    const threshold = 50;
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
   };
 
   useEffect(() => {
@@ -55,7 +87,12 @@ const HeroCarousel = () => {
   }, [nextSlide]);
 
   return (
-    <section className="relative w-full aspect-video md:aspect-auto md:h-[75vh] lg:h-[85vh] overflow-hidden bg-black">
+    <section
+      className="relative w-full aspect-video md:aspect-auto md:h-[75vh] lg:h-[85vh] overflow-hidden bg-black"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Slides */}
       <div className="relative w-full h-full">
         {banners.map((banner, index) => (
@@ -70,6 +107,7 @@ const HeroCarousel = () => {
               src={banner.image}
               alt={banner.alt}
               className="w-full h-full object-cover"
+              draggable={false}
             />
           </div>
         ))}

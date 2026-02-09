@@ -4,6 +4,7 @@ import MobileQuickMenu from "@/components/MobileQuickMenu";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import BrandPhilosophy from "@/components/BrandPhilosophy";
 import Newsletter from "@/components/Newsletter";
+import BestSellerProducts from "@/components/BestSellerProduct";
 
 const Index = () => {
   return (
@@ -13,6 +14,9 @@ const Index = () => {
 
       {/* Mobile Quick Menu - Only visible on mobile */}
       <MobileQuickMenu />
+
+      {/* Best Seller Products Section */}
+      <BestSellerProducts />
 
       {/* Featured Products Section */}
       <FeaturedProducts />

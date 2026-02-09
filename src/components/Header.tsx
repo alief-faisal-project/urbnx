@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, ShoppingBag, Search, Trash2, User } from "lucide-react";
+import { ShoppingBag, Search, Trash2, LogIn } from "lucide-react";
 import logo from "@/assets/logo_urbnx.png";
 import { useCart } from "@/context/CartContext";
 import { useProducts } from "@/context/ProductContext";
-import { useAdmin } from "@/context/AdminContext";
 import HamburgerIcon from "@/components/HamburgerIcon";
+import { useAdmin } from "@/context/AdminContext";
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,9 +17,8 @@ const Header = () => {
   const searchRef = useRef<HTMLDivElement>(null);
   const cartRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  const { items, totalItems, totalPrice, removeFromCart, updateQuantity } =
-    useCart();
+  
+  const { items, totalItems, totalPrice, removeFromCart, updateQuantity } = useCart();
   const { products, calculateDiscountedPrice } = useProducts();
   const { isAuthenticated: isAdminAuthenticated } = useAdmin();
 
@@ -48,10 +48,7 @@ const Header = () => {
   // Close dropdowns on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        searchRef.current &&
-        !searchRef.current.contains(event.target as Node)
-      ) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsSearchOpen(false);
         setSearchQuery("");
       }
@@ -83,17 +80,10 @@ const Header = () => {
       <div className="container-brand">
         <div className="flex items-center justify-between h-12 md:h-14 px-4 md:px-8">
           {/* Hamburger Menu - Left */}
-          <button
-            className="p-2 hover:bg-secondary/50 transition-colors"
+          <HamburgerIcon
+            isOpen={isMenuOpen}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6 md:w-7 md:h-7" />
-            ) : (
-              <Menu className="w-6 h-6 md:w-7 md:h-7" />
-            )}
-          </button>
+          />
 
           {/* Logo - Center */}
           <Link to="/" className="absolute left-1/2 -translate-x-1/2">
@@ -276,49 +266,52 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Slide-in Menu - Dark Style */}
+        {/* Slide-in Menu from Left - below header */}
         <div
-          className={`fixed top-0 left-0 h-screen w-full max-w-sm bg-[#1a1a1a] z-50 transform transition-transform duration-300 ease-out ${
-            isMenuOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`fixed top-14 left-0 w-full max-w-sm
+  h-[calc(100vh-3.5rem)]
+  bg-[#1a1a1a] z-40
+  transform transition-transform duration-500
+  ease-[cubic-bezier(0.25,0.46,0.45,0.94)]
+  ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
-          {/* Close Button */}
-          <div className="absolute top-4 left-4">
-            <HamburgerIcon isOpen={true} onClick={() => setIsMenuOpen(false)} />
-            <style>{`.absolute.top-4.left-4 span { background-color: white !important; }`}</style>
-          </div>
-
-          <nav className="flex flex-col pt-20 pb-8 h-full">
+          <nav className="flex flex-col h-full py-4">
             {navLinks.map((link, index) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className="px-6 py-5 text-white font-display text-lg uppercase tracking-[0.2em] hover:text-white/70 transition-all duration-200 border-b border-white/10"
                 onClick={() => setIsMenuOpen(false)}
+                className="px-6 py-5 text-white font-display text-lg uppercase
+        tracking-[0.2em] border-b border-white/10
+        hover:text-white/70 transition-colors duration-200"
                 style={{
+                  transform: isMenuOpen ? "translateX(0)" : "translateX(-16px)",
                   opacity: isMenuOpen ? 1 : 0,
-                  transform: isMenuOpen ? "translateX(0)" : "translateX(-20px)",
-                  transition: `all 0.3s ease-out ${index * 0.05}s`,
+                  transition: `opacity 0.3s ease ${index * 0.05}s,
+                       transform 0.3s ease ${index * 0.05}s`,
                 }}
               >
                 {link.name}
               </Link>
             ))}
 
-            {/* Admin Login Link */}
+            {/* Login Link */}
             <Link
               to={isAdminAuthenticated ? "/admin/panel" : "/admin/login"}
-              className="px-6 py-4 flex items-center gap-3 text-white/70 hover:text-white transition-colors border-b border-white/10"
+              className="px-6 py-5 flex items-center gap-3 text-white font-display text-lg uppercase tracking-[0.2em] hover:text-white/70 transition-all duration-200 border-b border-white/10"
               onClick={() => setIsMenuOpen(false)}
+              style={{
+                opacity: isMenuOpen ? 1 : 0,
+                transform: isMenuOpen ? "translateX(0)" : "translateX(-20px)",
+                transition: `all 0.4s ease-out ${navLinks.length * 0.06}s`,
+              }}
             >
-              <User className="w-5 h-5" />
-              <span className="text-sm uppercase tracking-wider">
-                {isAdminAuthenticated ? "Admin Panel" : "LOGIN"}
-              </span>
+              <LogIn className="w-5 h-5" />
+              <span>{isAdminAuthenticated ? "Dashboard" : "Login"}</span>
             </Link>
 
-            {/* Social Icons at Bottom */}
-            <div className="mt-auto px-6 pt-8 flex justify-center gap-8">
+            {/* Social Icons */}
+            <div className="mt-auto px-6 pt-4 pb-6 flex justify-center gap-8">
               <a
                 href="#"
                 className="text-white/50 hover:text-white transition-colors"
@@ -362,7 +355,7 @@ const Header = () => {
         {/* Overlay */}
         {isMenuOpen && (
           <div
-            className="fixed inset-0 bg-black/50 z-40"
+            className="fixed inset-0 bg-black/30 z-30"
             onClick={() => setIsMenuOpen(false)}
           />
         )}

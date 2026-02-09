@@ -1,15 +1,11 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { products as initialProducts, Product } from "@/data/products";
 
 export interface ProductWithDiscount extends Product {
   discountPercentage?: number;
   discountActive?: boolean;
+  stock?: number;
+  isOutOfStock?: boolean;
 }
 
 interface ProductContextType {
@@ -36,22 +32,10 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
       try {
         setProducts(JSON.parse(savedProducts));
       } catch {
-        setProducts(
-          initialProducts.map((p) => ({
-            ...p,
-            discountPercentage: 0,
-            discountActive: false,
-          }))
-        );
+        setProducts(initialProducts.map(p => ({ ...p, discountPercentage: 0, discountActive: false, stock: 100, isOutOfStock: false })));
       }
     } else {
-      setProducts(
-        initialProducts.map((p) => ({
-          ...p,
-          discountPercentage: 0,
-          discountActive: false,
-        }))
-      );
+      setProducts(initialProducts.map(p => ({ ...p, discountPercentage: 0, discountActive: false, stock: 100, isOutOfStock: false })));
     }
 
     // Load featured count
@@ -82,52 +66,41 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
       ...productData,
       id: generateId(),
     };
-    setProducts((prev) => [...prev, newProduct]);
+    setProducts(prev => [...prev, newProduct]);
   };
 
-  const updateProduct = (
-    id: string,
-    productData: Partial<ProductWithDiscount>
-  ) => {
-    setProducts((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, ...productData } : p))
+  const updateProduct = (id: string, productData: Partial<ProductWithDiscount>) => {
+    setProducts(prev => 
+      prev.map(p => p.id === id ? { ...p, ...productData } : p)
     );
   };
 
   const deleteProduct = (id: string) => {
-    setProducts((prev) => prev.filter((p) => p.id !== id));
+    setProducts(prev => prev.filter(p => p.id !== id));
   };
 
   const getProductById = (id: string) => {
-    return products.find((p) => p.id === id);
+    return products.find(p => p.id === id);
   };
 
   const calculateDiscountedPrice = (product: ProductWithDiscount): number => {
-    if (
-      product.discountActive &&
-      product.discountPercentage &&
-      product.discountPercentage > 0
-    ) {
-      return Math.round(
-        product.price - (product.price * product.discountPercentage) / 100
-      );
+    if (product.discountActive && product.discountPercentage && product.discountPercentage > 0) {
+      return Math.round(product.price - (product.price * product.discountPercentage / 100));
     }
     return product.price;
   };
 
   return (
-    <ProductContext.Provider
-      value={{
-        products,
-        featuredCount,
-        setFeaturedCount,
-        addProduct,
-        updateProduct,
-        deleteProduct,
-        getProductById,
-        calculateDiscountedPrice,
-      }}
-    >
+    <ProductContext.Provider value={{ 
+      products, 
+      featuredCount,
+      setFeaturedCount,
+      addProduct, 
+      updateProduct, 
+      deleteProduct, 
+      getProductById,
+      calculateDiscountedPrice 
+    }}>
       {children}
     </ProductContext.Provider>
   );

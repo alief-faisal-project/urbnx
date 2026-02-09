@@ -1,16 +1,23 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag, Ruler, Flame, Heart } from "lucide-react";
+import { ShoppingBag, Ruler, Flame, Sparkles } from "lucide-react";
+
 interface QuickMenuItem {
   icon: React.ReactNode;
   label: string;
   path: string;
   action?: string;
 }
+
 const menuItems: QuickMenuItem[] = [
   {
     icon: <ShoppingBag className="w-6 h-6" />,
     label: "Shop",
     path: "/shop",
+  },
+  {
+    icon: <Sparkles className="w-6 h-6" />,
+    label: "Terbaru",
+    path: "/shop?sort=newest",
   },
   {
     icon: <Ruler className="w-6 h-6" />,
@@ -23,13 +30,8 @@ const menuItems: QuickMenuItem[] = [
     path: "#terlaris",
     action: "scroll",
   },
-  {
-    icon: <Heart className="w-6 h-6" />,
-    label: "Favorit",
-    path: "#favorit",
-    action: "scroll",
-  },
 ];
+
 const MobileQuickMenu = () => {
   const handleClick = (item: QuickMenuItem, e: React.MouseEvent) => {
     if (item.action === "scroll") {
@@ -40,6 +42,7 @@ const MobileQuickMenu = () => {
       }
     }
   };
+
   return (
     <section className="md:hidden bg-background py-4 border-b border-border">
       <div className="container-brand">
@@ -62,4 +65,5 @@ const MobileQuickMenu = () => {
     </section>
   );
 };
+
 export default MobileQuickMenu;
