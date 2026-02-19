@@ -32,13 +32,13 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-white text-primary">
       <div className="container-brand section-padding">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-6">
             <img src={logo} alt="URBNX Logo" className="h-10 w-auto invert" />
-            <p className="text-primary-foreground/70 text-sm leading-relaxed max-w-sm">
+            <p className="text-primary text-sm leading-relaxed max-w-sm">
               Be Authentic In Your Own Style. URBNX adalah brand fashion
               streetwear Indonesia yang mengutamakan kualitas, keaslian, dan
               eksklusivitas.
@@ -50,7 +50,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 border border-primary-foreground/30 flex items-center justify-center hover:bg-primary-foreground hover:text-primary transition-all"
+                  className="w-10 h-10 border border-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all"
                   aria-label={social.label}
                 >
                   <social.icon className="w-4 h-4" />
@@ -71,7 +71,7 @@ const Footer = () => {
                   <li key={link.name}>
                     <Link
                       to={link.path}
-                      className="text-xs md:text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                      className="text-xs md:text-sm text-primary hover:text-primary/70 transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -90,7 +90,7 @@ const Footer = () => {
                   <li key={link.name}>
                     <Link
                       to={link.path}
-                      className="text-xs md:text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                      className="text-xs md:text-sm text-primary hover:text-primary/70 transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -109,7 +109,7 @@ const Footer = () => {
                   <li key={link.name}>
                     <Link
                       to={link.path}
-                      className="text-xs md:text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                      className="text-xs md:text-sm text-primary hover:text-primary/70 transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -121,8 +121,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-primary-foreground/20 flex justify-center items-center">
-          <p className="text-sm text-primary-foreground/50">
+        <div className="mt-16 pt-8 border-t border-primary flex justify-center items-center">
+          <p className="text-sm text-primary">
             © {currentYear} URBNX. All rights reserved.
           </p>
         </div>

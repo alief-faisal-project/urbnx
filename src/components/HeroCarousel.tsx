@@ -39,12 +39,11 @@ const HeroCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
-  // buat swipe
+  // === SWIPE STATE (jangan disentuh)
   const startX = useRef(0);
   const endX = useRef(0);
   const dragging = useRef(false);
 
-  // pindah ke kanan (default)
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % banners.length);
   }, []);
@@ -57,14 +56,13 @@ const HeroCarousel = () => {
     setCurrentIndex(index);
   };
 
-  // klik banner
   const handleClick = (productId: string) => {
     if (dragging.current) return;
     window.scrollTo({ top: 0, behavior: "instant" });
     navigate(`/product/${productId}`);
   };
 
-  // swipe logic
+  // === SWIPE LOGIC
   const onTouchStart = (e: React.TouchEvent) => {
     startX.current = e.touches[0].clientX;
     dragging.current = false;
@@ -84,7 +82,7 @@ const HeroCarousel = () => {
     }
   };
 
-  // auto jalan sendiri
+  // auto slide
   useEffect(() => {
     const interval = setInterval(nextSlide, 5500);
     return () => clearInterval(interval);
@@ -92,14 +90,24 @@ const HeroCarousel = () => {
 
   return (
     <section
-      className="relative w-full aspect-video md:h-[75vh] lg:h-[85vh] overflow-hidden bg-black"
+      className="
+    relative w-full overflow-hidden bg-black
+
+    /* MOBILE: normal, mengikuti rasio layar */
+    aspect-[16/9]
+
+    /* TABLET */
+    md:aspect-auto md:h-[55vh]
+
+    /* DESKTOP */
+    lg:h-[70vh]
+  "
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
       {/* TRACK SLIDE
-          ini jantungnya animasi
-          industrial = tegas + ngerem halus */}
+          geser halus */}
       <div
         className="
           flex h-full
@@ -120,16 +128,16 @@ const HeroCarousel = () => {
               alt={banner.alt}
               draggable={false}
               className="
-                w-full h-full object-cover
-                select-none
-              "
+    w-full h-full
+    object-cover object-center
+    select-none
+  "
             />
           </div>
         ))}
       </div>
 
-      {/* DOT INDIKATOR
-          simpel, gak norak */}
+      {/* DOT INDIKATOR */}
       <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-3">
         {banners.map((_, index) => (
           <button

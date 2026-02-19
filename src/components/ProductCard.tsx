@@ -41,8 +41,12 @@ const ProductCard = ({
       ? Math.round(price - (price * discountPercentage) / 100)
       : price;
 
-  // Only enable flip animation for T-Shirt and Hoodie categories
+  // Hanya kategori tertentu yang boleh menampilkan tampilan belakang (ukuran)
   const hasFlipAnimation = category === "T-Shirt" || category === "Hoodie";
+
+  // Flip (sekarang fade) hanya aktif jika:
+  // - Kategori mendukung
+  // - Produk tidak sedang habis
   const shouldFlip = hasFlipAnimation && !isOutOfStock;
 
   return (
@@ -51,25 +55,34 @@ const ProductCard = ({
       className="product-card block group"
       onClick={handleClick}
     >
-      <div
-        className={`relative overflow-hidden bg-secondary aspect-square mb-4 ${hasFlipAnimation ? "[perspective:1000px]" : ""}`}
-      >
-        <div
-          className={`relative w-full h-full ${hasFlipAnimation ? "transition-transform duration-500 [transform-style:preserve-3d]" : ""} ${shouldFlip ? "group-hover:[transform:rotateY(180deg)]" : ""}`}
-        >
-          {/* Front - Product Image */}
-          <div className="absolute inset-0 [backface-visibility:hidden]">
+      {/* Wrapper kartu produk */}
+      <div className="relative overflow-hidden bg-secondary aspect-square mb-4">
+        {/* Container utama gambar */}
+        <div className="relative w-full h-full">
+          {/* ================= FRONT (GAMBAR PRODUK) ================= */}
+          <div
+            className={`
+            absolute inset-0
+            transition-opacity duration-150
+            ${shouldFlip ? "group-hover:opacity-0" : ""}
+          `}
+          >
             <img
               src={image}
               alt={name}
-              className={`w-full h-full object-cover object-center ${isOutOfStock ? "opacity-50 grayscale" : ""}`}
+              className={`w-full h-full object-cover object-center ${
+                isOutOfStock ? "opacity-50 grayscale" : ""
+              }`}
             />
+
+            {/* Badge kategori */}
             {category && (
               <span className="absolute top-3 left-3 px-3 py-1 bg-background text-xs font-medium uppercase tracking-wider">
                 {category}
               </span>
             )}
-            {/* Out of Stock Badge */}
+
+            {/* Badge stok habis */}
             {isOutOfStock && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="px-4 py-2 bg-foreground text-background text-sm font-bold uppercase tracking-wider">
@@ -77,7 +90,8 @@ const ProductCard = ({
                 </span>
               </div>
             )}
-            {/* Discount Badge */}
+
+            {/* Badge diskon */}
             {!isOutOfStock &&
               discountActive &&
               discountPercentage &&
@@ -88,12 +102,23 @@ const ProductCard = ({
               )}
           </div>
 
-          {/* Flip - Ukuran yang Tersedia (hanya untuk Kaos dan Hoodie) */}
+          {/* ================= BACK (UKURAN TERSEDIA) ================= */}
           {hasFlipAnimation && (
-            <div className="absolute inset-0 bg-foreground [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col items-center justify-center p-4">
+            <div
+              className={`
+              absolute inset-0
+              bg-foreground
+              flex flex-col items-center justify-center p-4
+              opacity-0
+              transition-opacity duration-150
+              ${shouldFlip ? "group-hover:opacity-100" : ""}
+            `}
+            >
               <p className="text-background text-xs uppercase tracking-widest mb-4">
                 Ukuran Tersedia
               </p>
+
+              {/* List ukuran */}
               {sizes && sizes.length > 0 ? (
                 <div className="flex flex-wrap gap-2 justify-center">
                   {sizes.map((size) => (
@@ -112,10 +137,13 @@ const ProductCard = ({
           )}
         </div>
       </div>
+
+      {/* ================= INFO PRODUK ================= */}
       <div className="space-y-1">
         <h3 className="text-sm md:text-base font-medium uppercase tracking-wide">
           {name}
         </h3>
+
         <div className="flex items-center gap-2">
           {isOutOfStock ? (
             <p className="text-sm text-muted-foreground">Tidak tersedia</p>
@@ -137,6 +165,6 @@ const ProductCard = ({
       </div>
     </Link>
   );
-};
+};;
 
 export default ProductCard;

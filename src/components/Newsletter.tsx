@@ -15,11 +15,11 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="section-padding bg-primary text-primary-foreground">
+    <section className="section-padding bg-white text-primary-foreground border-b  border-primary/20">
       <div className="container-brand">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="heading-section mb-4">Layanan Pelanggan</h2>
-          <p className="text-primary-foreground/70 mb-8">
+          <h2 className="text-primary heading-section mb-4">Layanan Pelanggan</h2>
+          <p className="text-primary mb-8">
             Jika produk yang kamu terima tidak sesuai, silahkan ajukan komplain
             atau permintaan penukaran melalui formulir ini.
           </p>
@@ -33,19 +33,19 @@ const Newsletter = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Masukkan email kamu"
-              className="flex-1 px-6 py-4 bg-primary-foreground text-primary placeholder:text-primary/50 outline-none transition-all focus:ring-2 focus:ring-primary-foreground/50"
+              className="flex-1 px-6 py-4 bg-primary-foreground text-primary placeholder:text-primary/50 outline-none transition-all focus:ring-2 focus:ring-primary-foreground/50 border border-primary"
               required
             />
             <button
               type="submit"
-              className="px-8 py-4 bg-primary-foreground text-primary font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-primary-foreground/90 transition-all hover:gap-4"
+              className="px-8 py-4 bg-primary text-white font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:text-primary hover:bg-primary-foreground/90 transition-all hover:gap-4 border border-primary"
             >
               Subscribe
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
 
-          <p className="mt-6 text-xs text-primary-foreground/50">
+          <p className="mt-6 text-xs text-primary">
             Dengan melanjutkan, kamu menyetujui syarat dan ketentuan komplain
             serta penukaran produk yang berlaku.
           </p>
