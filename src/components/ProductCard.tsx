@@ -88,7 +88,7 @@ const ProductCard = ({
               )}
           </div>
 
-          {/* Back - Available Sizes (only for T-Shirt and Hoodie) */}
+          {/* Flip - Ukuran yang Tersedia (hanya untuk Kaos dan Hoodie) */}
           {hasFlipAnimation && (
             <div className="absolute inset-0 bg-foreground [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col items-center justify-center p-4">
               <p className="text-background text-xs uppercase tracking-widest mb-4">

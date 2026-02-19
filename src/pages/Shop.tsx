@@ -28,7 +28,7 @@ const Shop = () => {
         <div className="container-brand">
           {/* Page Header */}
           <div className="text-center mb-12">
-            <h1 className="heading-display mb-4">Shop Collection</h1>
+            <h1 className="heading-display mb-4">Katalog produk</h1>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Jelajahi koleksi lengkap produk URBNX. Kualitas premium dengan
               desain eksklusif.

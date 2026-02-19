@@ -17,6 +17,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import AdminLogin from "./pages/AdminLogin";
 import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 
 const queryClient = new QueryClient();
 

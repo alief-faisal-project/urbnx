@@ -127,9 +127,30 @@ const AdminLogin = () => {
         <div className="text-center mt-6">
           <button
             onClick={() => navigate("/")}
-            className="text-white/50 text-sm hover:text-white transition-colors"
+            className="group inline-flex items-center gap-2
+               text-white/50 text-sm
+               hover:text-white transition-colors
+             "
           >
-            ← Kembali ke Toko
+            <span className="relative w-4 h-4 inline-block">
+              {/* default icon */}
+              <i
+                className="fa-solid fa-arrow-left
+                    absolute inset-0
+                    opacity-100 group-hover:opacity-0
+                    transition-opacity duration-200"
+              ></i>
+
+              {/* hover icon */}
+              <i
+                className="fa-solid fa-arrow-left-long
+                    absolute inset-0
+                    opacity-0 group-hover:opacity-100
+                    transition-opacity duration-200"
+              ></i>
+            </span>
+
+            <span>Kembali ke Beranda</span>
           </button>
         </div>
       </div>

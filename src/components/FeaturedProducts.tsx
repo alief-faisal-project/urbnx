@@ -16,7 +16,7 @@ const FeaturedProducts = () => {
             <p className="text-sm text-muted-foreground uppercase tracking-widest mb-2">
               Koleksi Terbaru
             </p>
-            <h2 className="heading-section">Featured Products</h2>
+            <h2 className="heading-section">Produk Unggulan</h2>
           </div>
           <Link
             to="/shop"

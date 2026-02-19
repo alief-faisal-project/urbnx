@@ -8,7 +8,7 @@ const BestSellerProducts = () => {
   const bestSellerIds = [
     "urbnx-essential-tee-black",
     "urbnx-heavyweight-hoodie",
-    "urbnx-backpack-urban",
+    "urbnx-backpack-essential",
     "urbnx-braided-leather-bracelet",
   ];
 
